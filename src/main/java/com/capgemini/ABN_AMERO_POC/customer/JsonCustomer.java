@@ -9,7 +9,7 @@ public class JsonCustomer {
 	private List<Customer> customersList;
 	public JsonCustomer() {
 		this.customersList = new ArrayList<Customer>();
-		this.customerSequenceNumber = new Integer(9000);
+		this.customerSequenceNumber = new Integer(1000);
 	}
 	public Integer getCustomerSequenceNumber() {
 		return customerSequenceNumber;

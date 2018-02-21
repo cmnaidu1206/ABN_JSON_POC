@@ -23,7 +23,7 @@ public class JsonAccount {
 	}
 
 	public JsonAccount() {
-		this.accountSequenceNumber = new Integer("1000");
+		this.accountSequenceNumber = new Integer("9000");
 		this.accountsList = new ArrayList<Account>();
 	}
 
