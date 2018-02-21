@@ -1,0 +1,121 @@
+<div class="container-fluid">
+	<div class="row content">
+		<div class="col-sm-2 sidenav">
+			<h4 style="color: #00958F">Dashboard</h4>
+			<hr>
+			<ul class="nav nav-pills nav-stacked">
+				<li ng-click="stocks()" ng-class="{active:stocksView}">
+					<a href="">Stocks</a>
+				</li>
+				<li>
+					<a href="">Loans</a>
+				</li>
+				<li>
+					<a href="">Credits</a>
+				</li>
+				<li ng-click="changePassword()" ng-class="{active:changePasswordFlag}">
+					<a href="">Change Password</a>
+				</li>
+			</ul>
+		</div>
+		<div class="col-sm-10">
+			<div ng-if="stocksView" class="row">
+				<h2 class="abn_color">Stocks</h2>
+				<div class="col-md-5" id="container"></div>
+				<div class="col-md-7" id="lineGraph"></div>
+			</div>
+			<div ng-if="changePasswordFlag == true" class="row">
+				<h2 class="abn_color">Change Password</h2>
+				<ul class="list-group list_table">
+					<li style="border: none" class="list-group-item row">
+						<div class="col-sm-3 col-md-3">
+							<span class="danger_color">*</span>Old Password
+						</div>
+						<div class="col-sm-6 col-md-4 bold">
+							<input type="password" ng-model="passwordObj.old" class="form-control" placeholder="Enter Old Password">
+						</div>
+					</li>
+					<li style="border: none" class="list-group-item row">
+						<div class="col-sm-3 col-md-3">
+							<span class="danger_color">*</span>New Password
+						</div>
+						<div class="col-sm-6 col-md-4 bold">
+							<input type="password" ng-model="passwordObj.new" class="form-control" placeholder="Enter Old Password">
+						</div>
+					</li>
+					<li style="border: none" class="list-group-item row">
+						<div class="col-sm-3 col-md-3">
+							<span class="danger_color">*</span>Retype New Password
+						</div>
+						<div class="col-sm-6 col-md-4 bold">
+							<input type="password" ng-model="passwordObj.retype" class="form-control" placeholder="Retype Old Password">
+						</div>
+						<span ng-if=" passwordObj.retype!= null && passwordObj.retype!='' && passwordObj.retype == passwordObj.new" class="success_color">&#10004;</span>
+						<span ng-if=" passwordObj.retype!= null && passwordObj.retype!='' && passwordObj.retype != passwordObj.new" class="danger_color">&#10007;</span>
+					</li>
+					<li style="border: none" class="list-group-item row">
+						<div class="col-sm-3 col-md-3"></div>
+						<div class="col-sm-6 col-md-4 bold">
+							<button type="button" ng-click="updatePassword()" class="btn btn-info">Change Password</button>
+						</div>
+					</li>
+				</ul>
+				<div ng-if="responseObj != null" style="margin-top: 15px;" class="row col-md-7">
+					<div ng-if="responseObj.success == true" class="alert alert-success">{{responseObj.response}}</div>
+					<div ng-if="responseObj.success == false" class="alert alert-danger">{{responseObj.response}}</div>
+				</div>
+			</div>
+
+
+			<div class="row">
+				<h4>
+					<small>RECENT POSTS</small>
+				</h4>
+				<hr>
+				<h2>Trusted</h2>
+				<h5>Post by ABN, Jan 15, 2018.</h5>
+				<h5>
+					<span class="label label-danger">Secure</span>
+					<span class="label label-primary">Privacy</span>
+				</h5>
+				<br>
+				<p>We at ABN AMRO believe trust is all about establishing and maintaining lasting relationships. We take the time to get
+					to know you by listening to your specific needs and aspirations. Our goal? To find the products and services that are
+					right for you. When we make a promise, we always live up to it; when we communicate with you, we are always straightforward
+					and never have any hidden agendas. Our commitment to responsible banking means we carefully weigh risks and returns
+					so that you know your money is in good hands at all times.</p>
+				<br>
+				<br>
+
+
+				<hr>
+				<h2>Professional</h2>
+				<h5>
+					</span> Post by ABN, Jan 12, 2018.
+				</h5>
+				<h5>
+					<span class="label label-success">Quality</span>
+				</h5>
+				<br>
+				<p>We at ABN AMRO understand banking. We genuinely believe in our profession and take responsibility by saying “no” if saying
+					“yes” would not do right by you. We create solutions that are simple, understandable and workable, and we strive to
+					improve ourselves every day by working together and learning from one another – and from you.</p>
+				<hr>
+
+
+				<hr>
+				<h2>Ambitious</h2>
+				<h5>Post by ABN AMRO NL, Dec 25, 2017.</h5>
+				<h5>
+					<span class="label label-success">Innovative</span>
+				</h5>
+				<br>
+				<p>We at ABN AMRO are always stretching our boundaries and striving to achieve more for you. We make it our business to
+					know what’s going on in the market and to respond proactively, and we do everything possible to understand what you
+					really need and to craft innovative solutions. Our optimism about the future drives our ambition to offer you more.</p>
+				<hr>
+			</div>
+		</div>
+
+	</div>
+</div>

@@ -1,0 +1,127 @@
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-2 sidenav">
+            <h4 class="abn_color">Transfers Info</h4>
+            <hr>
+            <ul class="nav nav-pills nav-stacked">
+                <li ng-click="Transfer()" ng-class="{'active':doTransfer}">
+                    <a href="">Transfer</a>
+                </li>
+                <li ng-click="viewSentTransactions()" ng-class="{'active':sentTransactionsFlag}">
+                    <a href="">Sent transactions</a>
+                </li>
+                <li ng-click="viewReceiveTransactions()" ng-class="{'active':receivedTransactionsFlag}">
+                    <a href="">Received transactions</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-sm-10">
+            <div ng-if="receivedTransactionsFlag || sentTransactionsFlag">
+                <h2 class="abn_color">
+                    <span ng-if="sentTransactionsFlag">Sent </span>
+                    <span ng-if="receivedTransactionsFlag">Received </span>Transactions</h2>
+                <hr>
+                <div class="modal-content ">
+                    <div class="col-sm-4 col-md-3">
+                        <div class="inner-addon left-addon" style="margin-top: 10px; margin-bottom: 10px">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <input type="text" ng-model="search" class="form-control" placeholder="Search.." />
+                        </div>
+                    </div>
+                    <div class="" style="margin: 3px;">
+                        <div class="">
+                            <div class="">
+                                <table class="table table-fixed">
+                                    <thead>
+                                        <tr class="row " style="margin-left: 0px; margin-right: 0px">
+                                            <th class="col-sm-3" ng-click="sort('transactionNumber')">Transaction Number
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='transactionNumber'" ng-class="{'glyphicon-chevron-down':sortOrder,'glyphicon-chevron-up':!sortOrder}"></span>
+                                            </th>
+                                            <th class="col-sm-2" ng-click="sort('date')">Date
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='date'" ng-class="{'glyphicon-chevron-down':sortOrder,'glyphicon-chevron-up':!sortOrder}"></span>
+                                            </th>
+                                            <th class="col-sm-2" ng-click="sort('fromAccount')">From Account
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='fromAccount'" ng-class="{'glyphicon-chevron-down':sortOrder,'glyphicon-chevron-up':!sortOrder}"></span>
+                                            </th>
+                                            <th class="col-sm-2" ng-click="sort('toAccount')">To Account
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='toAccount'" ng-class="{'glyphicon-chevron-down':sortOrder,'glyphicon-chevron-up':!sortOrder}"></span>
+                                            </th>
+                                            <th class="col-sm-3" ng-click="sort('amount')">Amount
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='amount'" ng-class="{'glyphicon-chevron-down':sortOrder,'glyphicon-chevron-up':!sortOrder}"></span>
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="row" style="width: 100%; margin-left: 0px; margin-right: 0px" ng-repeat="transaction in allTransactions| orderBy:sortKey:sortOrder | filter:search">
+                                            <td class="col-sm-3 danger_color">{{transaction.transactionNumber}}</td>
+                                            <td class="col-sm-2 info_color">{{transaction.date}}</td>
+                                            <td class="col-sm-2 " ng-class="{warn_color:receivedTransactionsFlag}">{{transaction.fromAccount}}</td>
+                                            <td class="col-sm-2 strong" ng-class="{warn_color:sentTransactionsFlag}">{{transaction.toAccount}}</td>
+                                            <td class="col-sm-3 strong success_color">{{transaction.amount | currency}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="doTransfer">
+                <h2 class="abn_color">Transfer</h2>
+                <hr>
+                <div style="margin: 10px;">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <ul class="list-group list_table">
+                                    <li class="list-group-item row">
+                                            <div class="col-sm-4 col-md-4">Your Account Number </div>
+                                            <div class="col-sm-8 col-md-6 strong info_color">
+                                                {{transferObj.fromAccount}}
+                                            </div>
+                                        </li>
+                                <li class="list-group-item row">
+                                    <div class="col-sm-4 col-md-4">Your Available Balance </div>
+                                    <div class="col-sm-8 col-md-6 strong info_color">
+                                        {{availableBalance | currency}}
+                                    </div>
+                                </li>
+                                <li class="list-group-item row">
+                                    <div class="col-sm-4 col-md-4" style="margin-top: 6px">To Account Id</div>
+                                    <div class="col-sm-8 col-md-6 bold">
+                                        <input type="number" ng-model="transferObj.toAccount" class="form-control" placeholder="Enter to account number">
+                                    </div>
+                                </li>
+                                <li class="list-group-item row">
+                                    <div class="col-sm-4 col-md-4" style="margin-top: 6px">Amount</div>
+                                    <div class="col-sm-8 col-md-6 bold">
+                                        <input type="number" ng-model="transferObj.amount" class="form-control" placeholder="Enter Amount">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3"></div>
+                        <button type="button" ng-click="transferNow()" class="btn btn-success">Transfer Now </button>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="responseObj != null" style="padding-top: 15px;" class="col-sm-7">
+                <div ng-if="responseObj.success == true" class="alert alert-success">
+                    {{responseObj.response}}
+                </div>
+                <div ng-if="responseObj.success == false" class="alert alert-danger">
+                    {{responseObj.response}}
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</div>
+</div>

@@ -1,0 +1,98 @@
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-2 sidenav">
+            <h4 class="abn_color">Personal Info</h4>
+            <hr>
+            <ul class="nav nav-pills nav-stacked">
+                <li ng-class="{'active':viewFlag}" ng-click="view()">
+                    <a href="">View</a>
+                </li>
+                <li ng-class="{'active':updateFlag}" ng-click="update()">
+                    <a href="">Update</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-sm-10">
+            <div ng-if="viewFlag">
+                <h2 class="abn_color">View Details </h2>
+                <div ng-if="customerObj">
+                    <div class="col-sm-7">
+                        <ul class="list-group list_table">
+                            <li class="list-group-item row">
+                                <div class="col-sm-4 col-md-4">Customer Id</div>
+                                <div class="col-sm-8 col-md-6 bold">{{customerObj.customerId}}</div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-4 col-md-4">Name</div>
+                                <div class="col-sm-8 col-md-6 bold info_color">{{customerObj.name}}</div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-4 col-md-4">Phone Number</div>
+                                <div class="col-sm-8 col-md-6 bold">{{customerObj.phoneNumber}}</div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-4 col-md-4">Email Id</div>
+                                <div class="col-sm-8 col-md-6 bold">{{customerObj.emailId}}</div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-4 col-md-4">Address</div>
+                                <div class="col-sm-8 col-md-6 bold">{{customerObj.address}}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+            </div>
+
+            <div ng-if="updateFlag">
+                <h2 class="abn_color">Update Details </h2>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <ul class="list-group list_table">
+                            <li class="list-group-item row">
+                                <div class="col-sm-4 col-md-4">Customer Id</div>
+                                <div class="col-sm-8 col-md-6 bold">{{customerObj.customerId}}</div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-4 col-md-4">Name</div>
+                                <div class="col-sm-8 col-md-6 bold info_color">{{customerObj.name}}</div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-4 col-md-4">Phone Number</div>
+                                <div class="col-sm-8 col-md-6 bold">
+                                    <input type="text" min="" ng-model="inputCustomer.phoneNumber" class="form-control" placeholder="{{customerObj.phoneNumber}}">
+                                </div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-4 col-md-4">Email Id</div>
+                                <div class="col-sm-8 col-md-6 bold">
+                                    <input type="email" ng-model="inputCustomer.emailId" class="form-control" placeholder="{{customerObj.emailId}}">
+                                </div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-4 col-md-4">Address</div>
+                                <div class="col-sm-8 col-md-6 bold">
+                                    <input type="text" ng-model="inputCustomer.address" class="form-control" placeholder="{{customerObj.address}}">
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3 col-md-3"></div>
+                    <button type="button" ng-click="updateCustomer()" class="btn btn-info">Update</button>
+                </div>
+            </div>
+
+            <div ng-if="responseObj != null" style="padding-top: 15px;" class="col-sm-7">
+                <div ng-if="responseObj.success == true" class="alert alert-success">
+                    {{responseObj.response}}
+                </div>
+                <div ng-if="responseObj.success == false" class="alert alert-danger">
+                    {{responseObj.response}}
+                </div>
+            </div>
+        </div>
+    </div>

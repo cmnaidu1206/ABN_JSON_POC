@@ -1,0 +1,214 @@
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-2 sidenav">
+            <h4 class="abn_color">Users Mapping</h4>
+            <hr>
+            <ul class="nav nav-pills nav-stacked">
+                <li ng-click="viewAll()" ng-class="{'active':viewAllFlag}">
+                    <a href="">View All</a>
+                </li>
+                <li ng-click="add()" ng-class="{'active':addFlag}">
+                    <a href="">Add</a>
+                </li>
+                <li ng-click="update()" ng-class="{'active':updateFlag}">
+                    <a href="">Update</a>
+                </li>
+                <li ng-click="delete()" ng-class="{'active':deleteFlag}">
+                    <a href="">Delete</a>
+                </li>
+            </ul>
+            <br>
+        </div>
+
+        <div class="col-sm-10" style="padding-left: 10px; padding-right: 20px">
+            <div ng-if="viewAllFlag">
+                <h2 class="abn_color">All Users</h2>
+                <hr>
+                <div class="modal-content ">
+                    <div class="col-sm-4 col-md-3">
+                        <div class="inner-addon left-addon" style="margin-top: 10px; margin-bottom: 10px">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <input type="text" ng-model="search" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="" style="margin: 3px;">
+                        <div class="">
+                            <div class="">
+                                <table ng-if="users != null" class="table table-fixed">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-xs-4 col-sm-4 col-md-4" ng-click="sort('accountId')">Account Number
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='accountId'" ng-class="{'glyphicon-chevron-down':sortOrder,'glyphicon-chevron-up':!sortOrder}"></span>
+                                            </th>
+                                            <th class="col-xs-4 col-sm-4 col-md-4" ng-click="sort('userName')">User Name
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='userName'" ng-class="{'glyphicon-chevron-down':sortOrder,'glyphicon-chevron-up':!sortOrder}"></span>
+                                            </th>
+                                            <th class="col-xs-4 col-sm-4 col-md-4" ng-click="sort('role')">Role
+                                                <span class="glyphicon sort-icon" ng-show="sortKey=='role'" ng-class="{'glyphicon-chevron-down':sortOrder,'glyphicon-chevron-up':!sortOrder}"></span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="user in users| orderBy:sortKey:sortOrder | filter:search">
+                                            <td class="col-xs-4 col-sm-4 col-md-4 info_color">{{user.accountId}}</td>
+                                            <td class="col-xs-4 col-sm-4 col-md-4 success_color strong">{{user.userName}}</td>
+                                            <td class="col-xs-4 col-sm-4 col-md-4" ng-class="{danger_color:user.role=='ADMIN',warn_color:user.role !='ADMIN'} ">{{user.role}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="addFlag">
+                <h2 class="abn_color">Add User</h2>
+                <hr>
+                <div style="margin: 10px;">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <ul class="list-group list_table">
+                                <li class="list-group-item row">
+                                    <div class="col-sm-4 col-md-4">User Name</div>
+                                    <div class="col-sm-8 col-md-6 bold">
+                                        <input type="text" ng-model="addUserInput.userName" class="form-control" placeholder="Enter Username">
+                                    </div>
+                                </li>
+                                <li class="list-group-item row">
+                                    <div class="col-sm-4 col-md-4">Role</div>
+                                    <div class="col-sm-6 col-md-5">
+                                        <select class=" form-control info_color" ng-model="addUserInput.role">
+                                            <option>ADMIN</option>
+                                            <option>USER</option>
+                                        </select>
+                                    </div>
+                                </li>
+                                <li class="list-group-item row">
+                                    <div class="col-sm-4 col-md-4">Account Id</div>
+                                    <div class="col-sm-8 col-md-6 bold">
+                                        <input type="number" min="" ng-model="addUserInput.accountId" class="form-control" placeholder="Enter Account Number">
+                                    </div>
+                                </li>
+                                <li class="list-group-item row">
+                                    <div class="col-sm-4 col-md-4">password</div>
+                                    <div class="col-sm-8 col-md-6 bold">
+                                        <input type="text" ng-model="addUserInput.password" class="form-control" placeholder="Enter Password">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3"></div>
+                        <button type="button" ng-click="addUser()" class="btn btn-info">Add</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div ng-if="updateFlag">
+                <h2 class="abn_color">Update User</h2>
+                <div class="row">
+                    <div class="col-sm-4 col-md-3">
+                        <div class="inner-addon left-addon" style="margin-top: 10px; margin-bottom: 10px">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <input type="text" ng-model="updateUserInput.userName" class="form-control" placeholder="Search by username" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2" style="margin-top: 10px">
+                        <button type="button" ng-click="searchUser()" class="btn btn-info">Search</button>
+                    </div>
+                </div>
+                <div style="margin: 10px;" ng-if="searchResultUser != null">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <ul class="list-group list_table">
+                                <li class="list-group-item row">
+                                    <div class="col-sm-4 col-md-4">User Name</div>
+                                    <div class="col-sm-8 col-md-6 bold">{{searchResultUser.userName}}</div>
+                                </li>
+                                <li class="list-group-item row">
+                                    <div class="col-sm-4 col-md-4">Role</div>
+                                    <select style="margin-left: 15px; font-size: 16px" class="col-sm-6 col-md-5 info_color" ng-model="updateUserInput.role">
+                                        <option>ADMIN</option>
+                                        <option>USER</option>
+                                    </select>
+                                </li>
+                                <li class="list-group-item row">
+                                    <div class="col-sm-4 col-md-4">Account Id</div>
+                                    <div class="col-sm-8 col-md-6 bold">
+                                        <input type="number" min="" ng-model="updateUserInput.accountId" class="form-control" placeholder="{{searchResultUser.accountId}}">
+                                    </div>
+                                </li>
+                                <li class="list-group-item row">
+                                    <div class="col-sm-4 col-md-4">password</div>
+                                    <div class="col-sm-8 col-md-6 bold">
+                                        <input type="text" ng-model="updateUserInput.password" class="form-control" placeholder="{{searchResultUser.password}}">
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3"></div>
+                        <button type="button" ng-click="updateUser()" class="btn btn-info">Update</button>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="deleteFlag">
+                <h2 class="abn_color">Delete User</h2>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-4 col-md-3">
+                        <div class="inner-addon left-addon" style="margin-top: 10px; margin-bottom: 10px">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <input type="text" ng-model="deleteUserInput.userName" class="form-control" placeholder="Search by username" />
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-md-2" style="margin-top: 10px">
+                        <button type="button" ng-click="searchDeleteUser()" class="btn btn-info">Search</button>
+                    </div>
+                </div>
+                <div style="margin: 10px;" ng-if="searchDeleteResultUser != null">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <h4 class="abn_color">User Preview</h4>
+                            <ul class="list-group list_table">
+                                <li class="list-group-item row">
+                                    <div class="col-sm-3 ">User Name</div>
+                                    <div class="col-sm-9 bold">{{searchDeleteResultUser.userName}}</div>
+                                </li>
+                                <li class="list-group-item row">
+                                    <div class="col-sm-3">Account Id</div>
+                                    <div class="col-sm-9 bold">{{searchDeleteResultUser.accountId}}</div>
+                                </li>
+                                <li class="list-group-item row">
+                                    <div class="col-sm-3">Role</div>
+                                    <div class="col-sm-9 bold" ng-class="{success_color:searchDeleteResultUser.role=='!ADMIM', danger_color:searchDeleteResultUser.role=='ADMIN'}">{{searchDeleteResultUser.role}}</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3 col-md-3"></div>
+                        <button type="button" ng-click="userDelete()" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="responseObj != null" style="padding-top: 15px;" class="col-sm-7">
+                <div ng-if="responseObj.success == true" class="alert alert-success">
+                    {{responseObj.response}}
+                </div>
+                <div ng-if="responseObj.success == false" class="alert alert-danger">
+                    {{responseObj.response}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

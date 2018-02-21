@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-2 sidenav">
+            <h4 style="color: #00958F">Accounts Info</h4>
+            <hr>
+            <ul class="nav nav-pills nav-stacked">
+                <li ng-class="{'active':viewFlag}" ng-click="view()">
+                    <a href="">View</a>
+                </li>
+                <li ng-class="{'active':updateFlag}" ng-click="update()">
+                    <a href="">Update</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-sm-10">
+            <div ng-if="viewFlag">
+                <h2 class="abn_color" >View Accounts </h2>
+                <hr>
+                <div ng-if="viewData">
+                    <div class="col-sm-7">
+                        <ul class="list-group list_table">
+                            <li class="list-group-item row">
+                                <div class="col-sm-3 ">Account Id</div>
+                                <div class="col-sm-9 bold">{{viewData.accountId}}</div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-3">Account Type</div>
+                                <div class="col-sm-9 bold">{{viewData.accountType}}</div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-3">Balance</div>
+                                <div class="col-sm-9 info_color bold">{{viewData.balance | currency}}</div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-3">Open Date</div>
+                                <div class="col-sm-9 bold">{{viewData.openDate}}</div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-3">Status</div>
+                                <div class="col-sm-9 bold" ng-class="{success_color:viewData.status=='Active', danger_color:viewData.status!='Active'}">{{viewData.status}}</div>
+                            </li>
+                            <li class="list-group-item row">
+                                <div class="col-sm-3">Customer Id</div>
+                                <div class="col-sm-9 bold">{{viewData.customerId}}</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="updateFlag">
+                <h2 class="abn_color">Update Accounts</h2>
+                <hr>
+                <div class="row">
+                        <div class="col-sm-4 col-md-3 list_table">
+                            Existing Balance:
+                        </div>
+                        <div class="col-sm-2 col-md-1 list_table info_color">
+                            {{viewData.balance | currency}}
+                        </div>
+                </div>
+                <hr>
+                <div class="row" style="padding-bottom: 20px">
+                    <div class="col-sm-2 col-md-1 list_table" style="padding-top: 8px;">
+                        Balance:
+                    </div>
+                    <div class="col-sm-3 col-md-2" style="padding-top: 5px;">
+                            <input type="number" ng-model="inputBalance.value" class="form-control" placeholder="New Balance">
+                    </div>
+                    <div class="col-sm-2 col-md-1" style="padding-top: 5px;">
+                            <button type="button" ng-click="updateBalance()" class="btn btn-info">Update</button>
+                    </div>
+                   
+                </div>
+                
+            </div>
+
+            <div ng-if="responseObj != null" style="padding-top: 15px;" class="col-sm-7">
+                <div ng-if="responseObj.success == true" class="alert alert-success">
+                    {{responseObj.response}}
+                </div>
+                <div ng-if="responseObj.success == false" class="alert alert-danger">
+                    {{responseObj.response}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

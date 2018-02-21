@@ -1,0 +1,120 @@
+localhost:8080/account/add
+
+{
+	"accountId":1,
+	"balance":100,
+	"accountType":"Savings",
+	"openDate":"08/02/2018",
+	"status":"Active",
+	"customerId":9002
+}
+
+
+
+localhost:8080/account/update
+
+{
+	"accountId":1002,
+	"balance":10,
+	"accountType":"Savings",
+	"openDate":"08/02/2018",
+	"status":"Active",
+	"customerId":9002
+}
+
+
+localhost:8080/account/getAll
+
+
+localhost:8080/account/get/1001
+
+
+
+localhost:8080/account/delete/1001
+
+{
+	"accountId":1,
+	"balance":0.0,
+	"accountType":"Savings",
+	"openDate":"08/02/2018",
+	"status":"Active",
+	"customerId":"001"
+}
+
+
+
+----------------------------------------------------------------------
+
+
+localhost:8080/customer/add
+
+{
+	"customerId":1,
+	"name":"Jaya Sai Krishan",
+	"addess":"Hyderabad",
+	"emailId":"kalluri92",
+	"phoneNumber":"9492345152"
+}
+
+localhost:8080/customer/update
+
+{
+	"customerId":9001,
+	"name":"Jaya Sai Krishna Kalluri",
+	"addess":"Kothapet Tenali",
+	"emailId":"kallurikrishna92@gmail.com",
+	"phoneNumber":"+919492345152"
+}
+
+localhost:8080/customer/getAll
+
+localhost:8080/customer/get/9001
+
+localhost:8080/customer/delete/9001
+
+{
+	"accountId":1,
+	"balance":0.0,
+	"accountType":"Savings",
+	"openDate":"08/02/2018",
+	"status":"Active",
+	"customerId":"001"
+}
+
+
+---------------------------------------------
+
+localhost:8080/login/add
+
+{
+	"userName":"Krishna1",
+	"password":"Krishna123",
+	"accountId": 1002,
+	"role":"ADMIN"
+}
+
+
+localhost:8080/login/update
+
+{
+	"userName":"Krishna1",
+	"password":"Krishna123",
+	"accountId": 0,
+	"role":"ADMIN"
+}
+
+
+localhost:8080/login/getAll
+
+
+localhost:8080/login/get/Krishna
+
+localhost:8080/login/delete/
+
+{
+	"userName":"Krishna1",
+	"password":"Krishna123",
+	"accountId": 12,
+	"role":"ADMIN"
+}
+
