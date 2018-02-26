@@ -96,6 +96,8 @@
 <script type="text/javascript" src="asserts/lib/highcharts.js"></script>
 <script type="text/javascript" src="asserts/lib/exporting.js"></script>
 <script type="text/javascript" src="asserts/lib/series-label.js"></script>
+<script type="text/javascript" src="asserts/lib/angular-idle.min.js"></script>
+
 
 <!-- Custom Scripts Imports -->
 <script type="text/javascript" src="app/shared/app-resources/app-constants.js"></script>
