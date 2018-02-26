@@ -2,13 +2,21 @@
 
 var myApp = angular.module("MyApp", [
     'ngRoute', // Angular Related Imports.
+    'ngIdle', // Third Party Lib.
     'HomeModule', 'UserModule', // Application Related Modules.
     'MyAccountsModule', 'MyDetailsModule',
     'AccountModule', 'CustomerModule', 'TransactionsModule'
 ]);
 
+// Configuring The idle timeout.
+myApp.config(['KeepaliveProvider', 'IdleProvider', function(KeepaliveProvider, IdleProvider) {
+    IdleProvider.idle(1*30);
+    IdleProvider.timeout(10);
+    KeepaliveProvider.interval(1*10);
+  }]);
 //Creating run fucntion for Main module.
-var runMethod = function ($rootScope, SessionFactory) {
+var runMethod = function ($rootScope, SessionFactory,Idle,Keepalive) {
+    //Idle.watch();
     SessionFactory.getCurrentUser()
         .then(function success(response) {
             $rootScope.currentUser = response.data;
@@ -20,7 +28,7 @@ var runMethod = function ($rootScope, SessionFactory) {
         );
 }
 //Injucting Dependecy to runMethod.
-runMethod.$inject = ['$rootScope', 'SessionFactory'];
+runMethod.$inject = ['$rootScope', 'SessionFactory','Idle','Keepalive'];
 
 //registering run Method with Module myApp.
 myApp.run(runMethod);
@@ -39,6 +47,16 @@ var appController = function ($rootScope, $scope, $location) {
         $scope.userName = $rootScope.currentUser.userName;
         $location.path("/home");
     });
+    // $scope.$on('IdleTimeout', function() {
+    //     alert("Timeout");
+    //     angular.element("#signOutForm").submit();
+    // });
+    // $scope.$on('IdleStart', function() {
+        
+    // });
+    // $scope.$on('IdleEnd', function() {
+    //     alert("Idle End");
+    // });
 };
 
 // Dependecy Injecution.
