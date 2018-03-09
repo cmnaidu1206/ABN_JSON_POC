@@ -11,6 +11,7 @@ public class MovingIntervels {
 	public long maxFreeSpace;
 	public static final String _BAD_ = "BAD Request !!";
 	public static final String _PERFECT_ = "Perfect !!";
+
 	public static void main(String[] args) {
 		MovingIntervels mv = new MovingIntervels();
 		mv.readAllInputs();
@@ -20,6 +21,9 @@ public class MovingIntervels {
 	}
 
 	public String calculate() {
+		if (this.totalCakesRequiredForAll > this.noOfCakes) {
+			return MovingIntervels._BAD_;
+		}
 		if (this.k == 0) {
 			return this.caluculateAsItIs();
 		}
@@ -61,7 +65,7 @@ public class MovingIntervels {
 				}
 			}
 		}
-		this.maxFreeSpace = this.startIndexsOfPerson[0]-1;
+		this.maxFreeSpace = this.startIndexsOfPerson[0] - 1;
 		if (this.endIndexOfPerson[this.endIndexOfPerson.length - 1] < this.noOfCakes) {
 			long tailSpace = this.noOfCakes - this.endIndexOfPerson[this.endIndexOfPerson.length - 1];
 			if (tailSpace > this.maxFreeSpace) {
@@ -87,11 +91,8 @@ public class MovingIntervels {
 	}
 
 	public String caluculateAsItIs() {
-		if(this.totalCakesRequiredForAll > this.noOfCakes) {
-			return MovingIntervels._BAD_;				
-		}
-		for(int i=0; i< startIndexsOfPerson.length-1; i++) {
-			if(endIndexOfPerson[i] >= startIndexsOfPerson[i+1]) {
+		for (int i = 0; i < this.startIndexsOfPerson.length - 1; i++) {
+			if (this.endIndexOfPerson[i] >= this.startIndexsOfPerson[i + 1]) {
 				return MovingIntervels._BAD_;
 			}
 		}
@@ -99,7 +100,42 @@ public class MovingIntervels {
 	}
 
 	public String caluculateWithOneShift() {
-		return "BAD";
+		this.sortArrayWithEndIndexOfWhichHaveSameStartIndex();
+		return MovingIntervels._PERFECT_;
+	}
+
+	public void sortArrayWithEndIndexOfWhichHaveSameStartIndex() {
+		int i = 0;
+		int count = 0;
+		while (i < this.startIndexsOfPerson.length - 1) {
+			if (this.startIndexsOfPerson[i] == this.startIndexsOfPerson[i + 1]) {
+				count++;
+			} else {
+				if (count > 0) {
+					if(count > 1) {
+						System.out.println(MovingIntervels._BAD_);
+						System.exit(0);
+					}
+					this.sortFromTo(i - count, i);
+				}
+				count = 0;
+			}
+			i++;
+		}
+		this.printAllPersons();
+	}
+
+	public void sortFromTo(int from, int to) {
+		for (; from < to; from++) {
+			for (int j = from + 1; j < to; j++) {
+				if (this.endIndexOfPerson[from] > this.endIndexOfPerson[j]) {
+					long temp = endIndexOfPerson[from];
+					this.endIndexOfPerson[from] = this.endIndexOfPerson[from + 1];
+					this.endIndexOfPerson[from + 1] = temp;
+				}
+			}
+		}
+
 	}
 
 }
