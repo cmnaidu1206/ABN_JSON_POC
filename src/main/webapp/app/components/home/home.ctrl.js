@@ -153,7 +153,7 @@ var homeController = function ($rootScope, $scope, UserFactory) {
                         y: 3.2
                     }, {
                         name: 'ABN INDIA',
-                        y: 6.03,
+                        y: 10.03,
                     }]
                 }]
             });
