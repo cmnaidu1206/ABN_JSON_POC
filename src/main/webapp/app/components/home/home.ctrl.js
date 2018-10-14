@@ -140,7 +140,7 @@ var homeController = function ($rootScope, $scope, UserFactory) {
                         name: 'ABN US',
                         y: 6.03,
                     }, {
-                        name: 'ABN IN',
+                        name: 'ABN INDIA',
                         y: 10.38
                     }, {
                         name: 'ABN Euro',
@@ -151,9 +151,6 @@ var homeController = function ($rootScope, $scope, UserFactory) {
                     }, {
                         name: 'ABN CA',
                         y: 3.2
-                    }, {
-                        name: 'ABN INDIA',
-                        y: 10.03,
                     }]
                 }]
             });
